@@ -16,11 +16,11 @@ mydata <- read.csv(csv_entrada)
 #data frame df recebe mydata
 df <- data.frame(Partida = mydata$Partida, Equipes = mydata$Jogadore.a.s, Resultado = mydata$Resultado, Jogadores = mydata$Jogadore.a.s.1)
 
-#padronização de nomos
-df$Jogadores[which(df$Jogadores == "Ágata")] <- "Agata"
-df$Jogadores[which(df$Jogadores == "Bárbara")] <- "Barbara"
+#padronizaÃ§Ã£o de nomos
+df$Jogadores[which(df$Jogadores == "Ãgata")] <- "Agata"
+df$Jogadores[which(df$Jogadores == "BÃ¡rbara")] <- "Barbara"
 
-#colunas recebe a quantidade maxima de nomes na coluna equipes
+#colunas recebe a lista de nomes das novas colunas com base na quantidade maxima de nomes na coluna Equipes
 colunas <- paste0("Nome", 1:(max(str_count(df$Equipes, ',')) + 1))
 
 #as novas colunas jogares recebem os nomes da coluna equipes separados 
@@ -29,7 +29,7 @@ df = separate(df, Equipes, into = colunas, sep = ',', remove = FALSE, extra = "m
 #novo data frame sem as colunas desnecessarias
 ndf = data.frame(Partida = df$Partida, Jogador1 = df$Nome1, Jogador2 = df$Nome2, Jogador3 = df$Nome3, Resultado = df$Resultado)
 
-#padronização dos dados
+#padronizaÃ§Ã£o dos dados
 ndf$Jogador1[which(ndf$Jogador1 == "?gata")] <- "Agata"
 ndf$Jogador1[which(ndf$Jogador1 == "Rob'erto")] <- "Roberto"
 ndf$Jogador1[which(substring(ndf$Jogador1, 4) == "bara")] <- "Barbara"
@@ -50,10 +50,10 @@ ndf$Jogador3[which(ndf$Jogador3 == " ana")] <- " Ana"
 ndf$Jogador3[which(ndf$Jogador3 == " shelda")] <- " Shelda"
 ndf$Jogador3[which(is.na(ndf$Jogador3))] <- ""
 
-#criação de csv auxiliar para usar na regra de associação
+#criaÃ§Ã£o de csv auxiliar para usar na regra de associaÃ§Ã£o
 write.csv(ndf,csv_auxiliar, row.names = FALSE)
 
-#leitura das transações do arquivo
+#leitura das transaÃ§Ãµes do arquivo
 base = read.transactions(csv_auxiliar, header = T, sep = ",", rm.duplicates = T)
 
 #equipe com mais vitorias
